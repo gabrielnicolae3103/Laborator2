@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
@@ -105,5 +106,20 @@ public class LifecycleMonitorActivity extends AppCompatActivity {
         super.onDestroy();
 
         Log.d(Constants.TAG, "onDestroy() method was invoked");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(Constants.TAG, "onSaveInstanceState() method was invoked");
+        EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+        EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+        CheckBox rememberMeCheckBox = (CheckBox)findViewById(R.id.remember_me_checkbox);
+        if (rememberMeCheckBox.isChecked()) {
+            Log.d(Constants.TAG, "onSaveInstanceState() method was invoked 2");
+            savedInstanceState.putString(Constants.USERNAME_EDIT_TEXT, usernameEditText.getText().toString());
+            savedInstanceState.putString(Constants.PASSWORD_EDIT_TEXT, passwordEditText.getText().toString());
+            savedInstanceState.putBoolean(Constants.REMEMBER_ME_CHECKBOX, rememberMeCheckBox.isChecked());
+        }
     }
 }
